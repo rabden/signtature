@@ -5,6 +5,7 @@ import React from 'react';
 const LetterBank = React.memo(() => {
   return (
     <div className="letter-bank hidden">
+      {/* Uppercase Letters */}
       <div class="a up">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 46 51" height="51" width="46">
           <path d="M14.9987 32.0003C20.8769 23.2406 40.7942 1.02295 44.6176 1.58265C48.4411 2.14235 25.4397 26.0685 19.6688 50.0398C28.2839 11.7157 5.83642 32.6888 1.46688 33.1804C4.63512 27.4831 32.8719 20.946 44.7496 24.6628"></path>
@@ -135,6 +136,7 @@ const LetterBank = React.memo(() => {
           <path d="M18.4364 13.4383C15.9364 8.93822 51.9364 -1.5618 53.9364 4.43828C55.9364 10.4384 13.9362 25.9382 1.93593 44.4382C-5.52379 55.9382 31.4361 37.9382 38.9364 36.9383"></path>
         </svg>
       </div>
+      {/* Lowercase Letters */}
       <div class="a lo">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 13 51" height="51" width="13">
           <path d="M5.99958 25C5.73591 21.1582 1.99899 25.5 1.49941 28C1.00013 30.5 7.65454 23.3545 7.65454 23.3545C3.5802 27.3691 3.29278 30.5313 4.09638 30.7478C5.08629 31.0263 12.2012 24.7466 12.2012 24.7466"></path>
