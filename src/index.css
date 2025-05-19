@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -109,10 +110,14 @@
   transition: 0.2s stroke-dashoffset;
 }
 
-/* New styling for signature modal */
+/* Glassmorphic styling for signature modal */
 .modal {
   max-height: 90vh;
   transform-origin: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border-width: 1px;
+  border-style: solid;
 }
 
 .modal.active {
@@ -124,6 +129,7 @@
   min-height: 60px;
   flex-flow: wrap;
   justify-content: start;
+  position: relative;
 }
 
 .signature-main svg path {
@@ -140,6 +146,30 @@
 
 .up, .lo {
   max-height: 51px;
+}
+
+/* Download button styling */
+.download-btn {
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover {
+  transform: scale(1.1);
+}
+
+.signature-container {
+  transition: all 0.3s ease;
+  border: 1px dashed transparent;
+}
+
+.signature-container:hover {
+  border-color: rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.05);
+}
+
+.dark .signature-container:hover {
+  border-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.05);
 }
 
 /* Keep all the letter box margins and path stroke arrays from the original CSS */
