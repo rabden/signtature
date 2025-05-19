@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { useSignature } from '@/hooks/useSignature';
 import { Input } from '@/components/ui/input';
@@ -6,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import LetterBank from './LetterBank';
 import { FileText, Download } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
 const SignatureModal: React.FC = () => {
   const {
     signatureText,
@@ -168,18 +166,12 @@ const SignatureModal: React.FC = () => {
       </div>
       
       {/* Mobile download button - always visible on mobile */}
-      {isActive && (
-        <div className="sm:hidden">
-          <Button 
-            onClick={downloadSignature}
-            variant="secondary"
-            className="w-full justify-center"
-          >
+      {isActive && <div className="sm:hidden">
+          <Button onClick={downloadSignature} variant="secondary" className="w-full justify-center rounded-full bg-white/15 dark:bg-slate-900/30 border-white/30 dark:border-slate-600/30">
             <Download className="h-4 w-4 mr-2" />
             Download Signature
           </Button>
-        </div>
-      )}
+        </div>}
       
       {/* Hidden letter bank for SVG templates - now invisible */}
       <div className="hidden invisible">

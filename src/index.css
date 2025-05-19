@@ -90,6 +90,45 @@
     @apply border-border;
   }
 
+  /* Global style to disable outline and ring for all elements */
+  *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    ring: 0 !important;
+    ring-offset: 0 !important;
+  }
+
+  /* Disable focus rings for all buttons and interactive elements */
+  button:focus, 
+  [role="button"]:focus,
+  a:focus,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    ring: 0 !important;
+    ring-offset: 0 !important;
+  }
+
+  /* Override Radix UI and Shadcn components focus styles */
+  [data-radix-focus-visible]:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove focus-visible ring from shadcn components */
+  .focus-visible\:ring-2:focus-visible,
+  .focus-visible\:ring-offset-2:focus-visible,
+  .focus-visible\:outline-none:focus-visible,
+  .focus-visible\:ring:focus-visible,
+  .focus-visible\:ring-ring:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+  }
+
   body {
     @apply bg-background text-foreground;
     background: url('https://img.freepik.com/premium-photo/abstract-blurred-sky-colorful_40299-22.jpg') no-repeat center center fixed;
