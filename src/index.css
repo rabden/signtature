@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -110,7 +109,404 @@
   transition: 0.2s stroke-dashoffset;
 }
 
-.glass-effect {
-  background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 100%);
-  backdrop-filter: blur(10px);
+/* New styling for signature modal */
+.modal {
+  max-height: 90vh;
+  transform-origin: center;
+}
+
+.modal.active {
+  height: auto;
+}
+
+.signature-main {
+  display: flex;
+  min-height: 60px;
+  flex-flow: wrap;
+  justify-content: start;
+}
+
+.signature-main svg path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+  stroke: #000;
+  transition: 0.3s stroke-dashoffset;
+}
+
+.dark .signature-main svg path {
+  stroke: #fff;
+}
+
+.up, .lo {
+  max-height: 51px;
+}
+
+/* Keep all the letter box margins and path stroke arrays from the original CSS */
+/* letter boxes */
+.up.a {
+  margin: 0 -10px 0 -7px;
+}
+.up.b {
+  margin: 0 -5px 0 -13px;
+}
+.up.c {
+  margin: 0 -5px 0 -6px;
+}
+.up.d {
+  margin: 0 -6px 0 -7px;
+}
+.up.e {
+  margin: 0 -5px 0 -5px;
+}
+.up.f {
+  margin: 0 -10px 0 -10px;
+}
+.up.g {
+  margin: 0 -6px 0 -6px;
+}
+.up.h {
+  margin: 0 -7px 0 -7px;
+}
+.up.i {
+  margin: 0 -2px 0 -2px;
+}
+.up.j {
+  margin: 0 -2px 0 -4px;
+}
+.up.k {
+  margin: 0 -7px 0 -7px;
+}
+.up.l {
+  margin: 0 -2px 0 -3px;
+}
+.up.m {
+  margin: 0 -10px 0 -10px;
+}
+.up.n {
+  margin: 0 -7px 0 -7px;
+}
+.up.o {
+  margin: 0 -6px 0 -6px;
+}
+.up.p {
+  margin: 0 -6px 0 -10px;
+}
+.up.q {
+  margin: 0 -6px 0 -6px;
+}
+.up.r {
+  margin: 0 -4px 0 -7px;
+}
+.up.s {
+  margin: 0 -4px 0 -4px;
+}
+.up.t {
+  margin: 0 -7px 0 -7px;
+}
+.up.u {
+  margin: 0 -7px 0 -7px;
+}
+.up.v {
+  margin: 0 -7px 0 -7px;
+}
+.up.w {
+  margin: 0 -10px 0 -10px;
+}
+.up.x {
+  margin: 0 -7px 0 -7px;
+}
+.up.y {
+  margin: 0 -7px 0 -7px;
+}
+.up.z {
+  margin: 0 -5px 0 -5px;
+}
+.lo.a {
+  margin: 0 -4px 0 0;
+}
+.lo.b {
+  margin: 0 -6px 0 -1.5px;
+}
+.lo.c {
+  margin: 0 -4px 0 0;
+}
+.lo.d {
+  margin: 0 -5px 0 -1px;
+}
+.lo.e {
+  margin: 0 -3px 0 0;
+}
+.lo.f {
+  margin: 0 -7px 0 -5px;
+}
+.lo.g {
+  margin: 0 -4px 0 -2px;
+}
+.lo.h {
+  margin: 0 -5px 0 -1px;
+}
+.lo.i {
+  margin: 0 -1px 0 1px;
+}
+.lo.j {
+  margin: 0 -1px 0 0;
+}
+.lo.k {
+  margin: 0 -5px 0 -1px;
+}
+.lo.l {
+  margin: 0 -1px 0 1px;
+}
+.lo.m {
+  margin: 0 -7px 0 -3px;
+}
+.lo.n {
+  margin: 0 -4px 0 0;
+}
+.lo.o {
+  margin: 0 -4px 0 0;
+}
+.lo.p {
+  margin: 0 -4px 0 -1px;
+}
+.lo.q {
+  margin: 0 -4px 0 -1px;
+}
+.lo.r {
+  margin: 0 -3px 0 0;
+}
+.lo.s {
+  margin: 0 -3px 0 0;
+}
+.lo.t {
+  margin: 0 -4px 0 0;
+}
+.lo.u {
+  margin: 0 -4px 0 0;
+}
+.lo.v {
+  margin: 0 -4px 0 0;
+}
+.lo.w {
+  margin: 0 -6px 0 -2px;
+}
+.lo.x {
+  margin: 0 -4px 0 0;
+}
+.lo.y {
+  margin: 0 -4px 0 -2px;
+}
+.lo.z {
+  margin: 0 -3px 0 0;
+}
+
+/* letter paths */
+.up.a path {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+}
+.up.b path {
+  stroke-dasharray: 230;
+  stroke-dashoffset: 230;
+}
+.up.c path {
+  stroke-dasharray: 101;
+  stroke-dashoffset: 101;
+}
+.up.d path {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+}
+.up.e path {
+  stroke-dasharray: 144;
+  stroke-dashoffset: 144;
+}
+.up.f path {
+  stroke-dasharray: 168;
+  stroke-dashoffset: 168;
+}
+.up.g path {
+  stroke-dasharray: 144;
+  stroke-dashoffset: 144;
+}
+.up.h path {
+  stroke-dasharray: 175;
+  stroke-dashoffset: 175;
+}
+.up.i path {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+}
+.up.j path {
+  stroke-dasharray: 118;
+  stroke-dashoffset: 118;
+}
+.up.k path {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+}
+.up.l path {
+  stroke-dasharray: 84;
+  stroke-dashoffset: 84;
+}
+.up.m path {
+  stroke-dasharray: 270;
+  stroke-dashoffset: 270;
+}
+.up.n path {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+}
+.up.o path {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+}
+.up.p path {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+}
+.up.q path {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+}
+.up.r path {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+}
+.up.s path {
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+}
+.up.t path {
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
+}
+.up.u path {
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+}
+.up.v path {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+}
+.up.w path {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+}
+.up.x path {
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+}
+.up.y path {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+}
+.up.z path {
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+}
+.lo.a path {
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+}
+.lo.b path {
+  stroke-dasharray: 64;
+  stroke-dashoffset: 64;
+}
+.lo.c path {
+  stroke-dasharray: 17;
+  stroke-dashoffset: 17;
+}
+.lo.d path {
+  stroke-dasharray: 44;
+  stroke-dashoffset: 44;
+}
+.lo.e path {
+  stroke-dasharray: 32;
+  stroke-dashoffset: 32;
+}
+.lo.f path {
+  stroke-dasharray: 73;
+  stroke-dashoffset: 73;
+}
+.lo.g path {
+  stroke-dasharray: 47;
+  stroke-dashoffset: 47;
+}
+.lo.h path {
+  stroke-dasharray: 53;
+  stroke-dashoffset: 53;
+}
+.lo.i path {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 10;
+}
+.lo.j path {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+}
+.lo.k path {
+  stroke-dasharray: 54;
+  stroke-dashoffset: 54;
+}
+.lo.l path {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+}
+.lo.m path {
+  stroke-dasharray: 78;
+  stroke-dashoffset: 78;
+}
+.lo.n path {
+  stroke-dasharray: 35;
+  stroke-dashoffset: 35;
+}
+.lo.o path {
+  stroke-dasharray: 31;
+  stroke-dashoffset: 31;
+}
+.lo.p path {
+  stroke-dasharray: 61;
+  stroke-dashoffset: 61;
+}
+.lo.q path {
+  stroke-dasharray: 61;
+  stroke-dashoffset: 61;
+}
+.lo.r path {
+  stroke-dasharray: 27;
+  stroke-dashoffset: 27;
+}
+.lo.s path {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
+}
+.lo.t path {
+  stroke-dasharray: 38;
+  stroke-dashoffset: 38;
+}
+.lo.u path {
+  stroke-dasharray: 33;
+  stroke-dashoffset: 33;
+}
+.lo.v path {
+  stroke-dasharray: 34;
+  stroke-dashoffset: 34;
+}
+.lo.w path {
+  stroke-dasharray: 81;
+  stroke-dashoffset: 81;
+}
+.lo.x path {
+  stroke-dasharray: 34;
+  stroke-dashoffset: 34;
+}
+.lo.y path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+}
+.lo.z path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
 }
