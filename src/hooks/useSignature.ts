@@ -68,11 +68,17 @@ export const useSignature = () => {
     if (animate) {
       setTimeout(() => {
         const path = letterElement.querySelector('svg path');
-        if (path) path.style.strokeDashoffset = '0';
+        if (path) {
+          // Fix: TypeScript cast to SVGPathElement
+          (path as SVGPathElement).style.strokeDashoffset = '0';
+        }
       }, 50);
     } else {
       const path = letterElement.querySelector('svg path');
-      if (path) path.style.strokeDashoffset = '0';
+      if (path) {
+        // Fix: TypeScript cast to SVGPathElement
+        (path as SVGPathElement).style.strokeDashoffset = '0';
+      }
     }
     
     return letterElement;
