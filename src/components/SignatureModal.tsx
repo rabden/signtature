@@ -28,8 +28,21 @@ const SignatureModal: React.FC = () => {
     // Create a container SVG to hold all the letter SVGs
     const containerSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     containerSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    containerSvg.setAttribute('width', signatureDiv.offsetWidth.toString());
-    containerSvg.setAttribute('height', signatureDiv.offsetHeight.toString());
+    
+    // Calculate the total width needed for all letters
+    let totalWidth = 0;
+    let maxHeight = 0;
+    
+    // First pass to calculate dimensions
+    svgElements.forEach((svg) => {
+      const rect = svg.getBoundingClientRect();
+      totalWidth += rect.width;
+      maxHeight = Math.max(maxHeight, rect.height);
+    });
+    
+    // Add some padding
+    containerSvg.setAttribute('width', (totalWidth + 10).toString());
+    containerSvg.setAttribute('height', (maxHeight + 10).toString());
     
     // Add white background
     const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -39,24 +52,35 @@ const SignatureModal: React.FC = () => {
     containerSvg.appendChild(background);
     
     // Clone and add each SVG element to the container
-    let offsetX = 0;
+    let offsetX = 5; // Start with a bit of padding
     svgElements.forEach((svg) => {
+      // Deep clone the SVG element
       const svgClone = svg.cloneNode(true) as SVGSVGElement;
+      const pathElement = svgClone.querySelector('path');
+      
+      if (pathElement) {
+        // Reset the animation properties to make sure path is fully drawn
+        pathElement.style.strokeDasharray = 'none';
+        pathElement.style.strokeDashoffset = '0';
+        
+        // Get computed styles of the original path for accurate rendering
+        const computedStyle = window.getComputedStyle(svg.querySelector('path')!);
+        pathElement.setAttribute('stroke', computedStyle.stroke);
+        pathElement.setAttribute('stroke-width', computedStyle.strokeWidth);
+        pathElement.setAttribute('fill', 'none'); // Ensure no fill
+      }
+      
+      // Create a group to position each letter
       const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      group.setAttribute('transform', `translate(${offsetX}, 5)`);
       
-      // Get the original viewBox
-      const viewBox = svgClone.getAttribute('viewBox')?.split(' ').map(Number) || [0, 0, 0, 0];
-      
-      // Position the SVG
-      group.setAttribute('transform', `translate(${offsetX}, 0)`);
-      
-      // Add all children of the SVG to the group
+      // Add SVG content to group
       while (svgClone.firstChild) {
         group.appendChild(svgClone.firstChild);
       }
       
       containerSvg.appendChild(group);
-      offsetX += svgClone.getBoundingClientRect().width;
+      offsetX += svg.getBoundingClientRect().width;
     });
     
     // Serialize the SVG to a string
