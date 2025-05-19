@@ -1,9 +1,12 @@
+
 import React, { useRef } from 'react';
 import { useSignature } from '@/hooks/useSignature';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import LetterBank from './LetterBank';
 import { FileText, Download } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 const SignatureModal: React.FC = () => {
   const {
     signatureText,
@@ -130,7 +133,7 @@ const SignatureModal: React.FC = () => {
     // Clean up
     URL.revokeObjectURL(url);
   };
-  return <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch gap-6 w-[400px] p-6 rounded-2xl overflow-hidden transition-all duration-400 ease-in-out">
+  return <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch gap-6 w-[400px] p-6 rounded-2xl">
       <div className="field-wrapper relative flex flex-col gap-2">
         <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
           <FileText className="h-5 w-5" />
@@ -148,10 +151,11 @@ const SignatureModal: React.FC = () => {
         <div className="relative">
           <div ref={signatureRef} className="signature-main flex min-h-[60px] flex-wrap justify-start py-2"></div>
           
+          {/* Desktop hover download button */}
           {isActive && <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button onClick={downloadSignature} className="download-btn absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-full bg-white/30 dark:bg-slate-700/30 hover:bg-white/50 dark:hover:bg-slate-600/50" aria-label="Download signature">
+                  <button onClick={downloadSignature} className="download-btn hidden sm:block absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-full bg-white/30 dark:bg-slate-700/30 hover:bg-white/50 dark:hover:bg-slate-600/50" aria-label="Download signature">
                     <Download className="h-4 w-4 text-slate-700 dark:text-slate-300" />
                   </button>
                 </TooltipTrigger>
@@ -162,6 +166,20 @@ const SignatureModal: React.FC = () => {
             </TooltipProvider>}
         </div>
       </div>
+      
+      {/* Mobile download button - always visible on mobile */}
+      {isActive && (
+        <div className="sm:hidden">
+          <Button 
+            onClick={downloadSignature}
+            variant="secondary"
+            className="w-full justify-center"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Download Signature
+          </Button>
+        </div>
+      )}
       
       {/* Hidden letter bank for SVG templates - now invisible */}
       <div className="hidden invisible">
