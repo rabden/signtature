@@ -29,18 +29,19 @@ const SignatureModal: React.FC = () => {
     const containerSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     containerSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     
-    // Calculate the total width needed for all letters
+    // Calculate the total width needed for all letters with minimal spacing
     let totalWidth = 0;
     let maxHeight = 0;
     
     // First pass to calculate dimensions
-    svgElements.forEach((svg) => {
+    svgElements.forEach((svg, index) => {
       const rect = svg.getBoundingClientRect();
+      // Don't add extra space between letters
       totalWidth += rect.width;
       maxHeight = Math.max(maxHeight, rect.height);
     });
     
-    // Reduced padding for tighter spacing
+    // No padding for tight spacing
     containerSvg.setAttribute('width', totalWidth.toString());
     containerSvg.setAttribute('height', maxHeight.toString());
     
@@ -53,17 +54,28 @@ const SignatureModal: React.FC = () => {
     
     // Clone and add each SVG element to the container
     let offsetX = 0; // No initial padding
+    
+    // Apply the original CSS margin adjustments from the display
     svgElements.forEach((svg) => {
       // Deep clone the SVG element
       const svgClone = svg.cloneNode(true) as SVGSVGElement;
       const pathElement = svgClone.querySelector('path');
       
+      // Get parent element which contains the letter class
+      const letterParent = svg.parentElement;
+      if (!letterParent) return;
+      
+      // Get letter type (up/lo) and character
+      const classNames = letterParent.className.split(' ');
+      const letterType = classNames[0]; // 'up' or 'lo'
+      const letterChar = classNames[1]; // The letter itself
+      
+      // Get computed style of the path for accurate rendering
       if (pathElement) {
         // Reset the animation properties to make sure path is fully drawn
         pathElement.style.strokeDasharray = 'none';
         pathElement.style.strokeDashoffset = '0';
         
-        // Get computed styles of the original path for accurate rendering
         const computedStyle = window.getComputedStyle(svg.querySelector('path')!);
         pathElement.setAttribute('stroke', computedStyle.stroke);
         pathElement.setAttribute('stroke-width', computedStyle.strokeWidth);
@@ -72,6 +84,29 @@ const SignatureModal: React.FC = () => {
       
       // Create a group to position each letter
       const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      
+      // Get the computed margins from CSS
+      let marginLeft = 0;
+      let marginRight = 0;
+      
+      // Apply the same negative margins as in CSS to create tight spacing
+      if (letterType && letterChar) {
+        const computedStyle = window.getComputedStyle(letterParent);
+        const margin = computedStyle.margin;
+        
+        if (margin) {
+          // Parse margin values (format: top right bottom left)
+          const marginValues = margin.split(' ');
+          if (marginValues.length === 4) {
+            marginRight = parseFloat(marginValues[1]);
+            marginLeft = parseFloat(marginValues[3]);
+          }
+        }
+        
+        // Apply the negative margin effect to position
+        offsetX += marginLeft;
+      }
+      
       group.setAttribute('transform', `translate(${offsetX}, 0)`);
       
       // Add SVG content to group
@@ -80,15 +115,9 @@ const SignatureModal: React.FC = () => {
       }
       
       containerSvg.appendChild(group);
-      offsetX += svg.getBoundingClientRect().width;
-      // Apply the original letter spacing from CSS
-      const letterClass = svg.parentElement?.className.split(' ')[0];
-      const letterChar = svg.parentElement?.className.split(' ')[1];
       
-      // Try to preserve the same inter-letter spacing as in the UI
-      if (letterClass && letterChar) {
-        // We're not adding extra spacing, just using the natural width
-      }
+      // Calculate next position with right margin consideration
+      offsetX += svg.getBoundingClientRect().width + marginRight;
     });
     
     // Serialize the SVG to a string
