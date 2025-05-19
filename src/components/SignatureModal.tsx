@@ -1,9 +1,11 @@
+
 import React, { useRef } from 'react';
 import { useSignature } from '@/hooks/useSignature';
 import { Input } from '@/components/ui/input';
 import LetterBank from './LetterBank';
 import { FileText, Download } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 const SignatureModal: React.FC = () => {
   const {
     signatureText,
@@ -130,7 +132,8 @@ const SignatureModal: React.FC = () => {
     // Clean up
     URL.revokeObjectURL(url);
   };
-  return <div className="modal fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch gap-6 w-[400px] p-6 rounded-2xl overflow-hidden transition-all duration-400 ease-in-out">
+
+  return <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch gap-6 w-[400px] p-6 rounded-2xl overflow-hidden transition-all duration-400 ease-in-out">
       <div className="field-wrapper relative flex flex-col gap-2">
         <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
           <FileText className="h-5 w-5" />
@@ -169,4 +172,5 @@ const SignatureModal: React.FC = () => {
       </div>
     </div>;
 };
+
 export default SignatureModal;
