@@ -11,30 +11,6 @@ export const useSignature = () => {
   const [isActive, setIsActive] = useState(false);
   const signatureRef = useRef<HTMLDivElement>(null);
   
-  // Letter spacing settings (margins for proper positioning)
-  const settings: SignatureSettings = {
-    letterSpacing: {
-      'A': { margin: '0 -10px 0 -7px' },
-      'B': { margin: '0 -5px 0 -13px' },
-      'C': { margin: '0 -5px 0 -6px' },
-      // Would include all letters in actual implementation
-      'a': { margin: '0 -4px 0 0' },
-      'b': { margin: '0 -6px 0 -1.5px' },
-      'c': { margin: '0 -4px 0 0' },
-      // Would include all letters in actual implementation
-    },
-    letterPaths: {
-      'A': { array: 190 },
-      'B': { array: 230 },
-      'C': { array: 101 },
-      // Would include all letters in actual implementation
-      'a': { array: 36 },
-      'b': { array: 64 },
-      'c': { array: 17 },
-      // Would include all letters in actual implementation
-    }
-  };
-
   // Create SVG path for a letter
   const createLetterElement = (letter: string, animate: boolean): HTMLDivElement | null => {
     if (letter === ' ') {
@@ -93,6 +69,12 @@ export const useSignature = () => {
       setIsActive(false);
     } else {
       setIsActive(true);
+    }
+    
+    if (signatureRef.current) {
+      signatureRef.current.innerHTML = '';
+      const letters = value.split('');
+      letters.forEach(letter => drawLetter(letter, false));
     }
   };
 

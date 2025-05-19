@@ -172,6 +172,7 @@
   stroke-linecap: round;
   stroke-width: 1.5;
   stroke: #000;
+  fill: none;
   transition: 0.3s stroke-dashoffset;
 }
 
@@ -181,6 +182,14 @@
 
 .up, .lo {
   max-height: 51px;
+  display: inline-block;
+}
+
+/* Make sure SVG elements are visible */
+.letter-bank svg, 
+.signature-main svg {
+  display: inline-block;
+  overflow: visible;
 }
 
 /* Download button styling */
@@ -207,7 +216,20 @@
   background-color: rgba(0,0,0,0.05);
 }
 
-/* Keep all the letter box margins and path stroke arrays from the original CSS */
+/* Fix for letter boxes to ensure proper visibility */
+/* letter boxes */
+.up.a, .up.b, .up.c, .up.d, .up.e, .up.f, .up.g, .up.h, .up.i, .up.j, .up.k,
+.up.l, .up.m, .up.n, .up.o, .up.p, .up.q, .up.r, .up.s, .up.t, .up.u, .up.v, 
+.up.w, .up.x, .up.y, .up.z, 
+.lo.a, .lo.b, .lo.c, .lo.d, .lo.e, .lo.f, .lo.g, .lo.h, .lo.i, .lo.j, .lo.k,
+.lo.l, .lo.m, .lo.n, .lo.o, .lo.p, .lo.q, .lo.r, .lo.s, .lo.t, .lo.u, .lo.v, 
+.lo.w, .lo.x, .lo.y, .lo.z {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Individual letter spacing */
 /* letter boxes */
 .up.a {
   margin: 0 -10px 0 -7px;
@@ -366,212 +388,25 @@
   margin: 0 -3px 0 0;
 }
 
-/* letter paths */
-.up.a path {
-  stroke-dasharray: 190;
-  stroke-dashoffset: 190;
+/* Fixing path stroke dasharray and stroke-dashoffset for all letters */
+.up svg path, .lo svg path {
+  stroke-dasharray: none !important; /* Remove stroke-dasharray to display full path */
+  stroke-dashoffset: 0 !important;  /* Reset offset to show full path */
 }
-.up.b path {
-  stroke-dasharray: 230;
-  stroke-dashoffset: 230;
+
+/* Override existing stroke-dasharray values to ensure letters are fully visible */
+.up.a path, .up.b path, .up.c path, .up.d path, .up.e path, 
+.up.f path, .up.g path, .up.h path, .up.i path, .up.j path,
+.up.k path, .up.l path, .up.m path, .up.n path, .up.o path,
+.up.p path, .up.q path, .up.r path, .up.s path, .up.t path,
+.up.u path, .up.v path, .up.w path, .up.x path, .up.y path, .up.z path,
+.lo.a path, .lo.b path, .lo.c path, .lo.d path, .lo.e path, 
+.lo.f path, .lo.g path, .lo.h path, .lo.i path, .lo.j path,
+.lo.k path, .lo.l path, .lo.m path, .lo.n path, .lo.o path,
+.lo.p path, .lo.q path, .lo.r path, .lo.s path, .lo.t path,
+.lo.u path, .lo.v path, .lo.w path, .lo.x path, .lo.y path, .lo.z path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
 }
-.up.c path {
-  stroke-dasharray: 101;
-  stroke-dashoffset: 101;
-}
-.up.d path {
-  stroke-dasharray: 190;
-  stroke-dashoffset: 190;
-}
-.up.e path {
-  stroke-dasharray: 144;
-  stroke-dashoffset: 144;
-}
-.up.f path {
-  stroke-dasharray: 168;
-  stroke-dashoffset: 168;
-}
-.up.g path {
-  stroke-dasharray: 144;
-  stroke-dashoffset: 144;
-}
-.up.h path {
-  stroke-dasharray: 175;
-  stroke-dashoffset: 175;
-}
-.up.i path {
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
-}
-.up.j path {
-  stroke-dasharray: 118;
-  stroke-dashoffset: 118;
-}
-.up.k path {
-  stroke-dasharray: 170;
-  stroke-dashoffset: 170;
-}
-.up.l path {
-  stroke-dasharray: 84;
-  stroke-dashoffset: 84;
-}
-.up.m path {
-  stroke-dasharray: 270;
-  stroke-dashoffset: 270;
-}
-.up.n path {
-  stroke-dasharray: 170;
-  stroke-dashoffset: 170;
-}
-.up.o path {
-  stroke-dasharray: 140;
-  stroke-dashoffset: 140;
-}
-.up.p path {
-  stroke-dasharray: 170;
-  stroke-dashoffset: 170;
-}
-.up.q path {
-  stroke-dasharray: 170;
-  stroke-dashoffset: 170;
-}
-.up.r path {
-  stroke-dasharray: 140;
-  stroke-dashoffset: 140;
-}
-.up.s path {
-  stroke-dasharray: 130;
-  stroke-dashoffset: 130;
-}
-.up.t path {
-  stroke-dasharray: 90;
-  stroke-dashoffset: 90;
-}
-.up.u path {
-  stroke-dasharray: 150;
-  stroke-dashoffset: 150;
-}
-.up.v path {
-  stroke-dasharray: 120;
-  stroke-dashoffset: 120;
-}
-.up.w path {
-  stroke-dasharray: 220;
-  stroke-dashoffset: 220;
-}
-.up.x path {
-  stroke-dasharray: 130;
-  stroke-dashoffset: 130;
-}
-.up.y path {
-  stroke-dasharray: 140;
-  stroke-dashoffset: 140;
-}
-.up.z path {
-  stroke-dasharray: 110;
-  stroke-dashoffset: 110;
-}
-.lo.a path {
-  stroke-dasharray: 36;
-  stroke-dashoffset: 36;
-}
-.lo.b path {
-  stroke-dasharray: 64;
-  stroke-dashoffset: 64;
-}
-.lo.c path {
-  stroke-dasharray: 17;
-  stroke-dashoffset: 17;
-}
-.lo.d path {
-  stroke-dasharray: 44;
-  stroke-dashoffset: 44;
-}
-.lo.e path {
-  stroke-dasharray: 32;
-  stroke-dashoffset: 32;
-}
-.lo.f path {
-  stroke-dasharray: 73;
-  stroke-dashoffset: 73;
-}
-.lo.g path {
-  stroke-dasharray: 47;
-  stroke-dashoffset: 47;
-}
-.lo.h path {
-  stroke-dasharray: 53;
-  stroke-dashoffset: 53;
-}
-.lo.i path {
-  stroke-dasharray: 10;
-  stroke-dashoffset: 10;
-}
-.lo.j path {
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
-}
-.lo.k path {
-  stroke-dasharray: 54;
-  stroke-dashoffset: 54;
-}
-.lo.l path {
-  stroke-dasharray: 20;
-  stroke-dashoffset: 20;
-}
-.lo.m path {
-  stroke-dasharray: 78;
-  stroke-dashoffset: 78;
-}
-.lo.n path {
-  stroke-dasharray: 35;
-  stroke-dashoffset: 35;
-}
-.lo.o path {
-  stroke-dasharray: 31;
-  stroke-dashoffset: 31;
-}
-.lo.p path {
-  stroke-dasharray: 61;
-  stroke-dashoffset: 61;
-}
-.lo.q path {
-  stroke-dasharray: 61;
-  stroke-dashoffset: 61;
-}
-.lo.r path {
-  stroke-dasharray: 27;
-  stroke-dashoffset: 27;
-}
-.lo.s path {
-  stroke-dasharray: 28;
-  stroke-dashoffset: 28;
-}
-.lo.t path {
-  stroke-dasharray: 38;
-  stroke-dashoffset: 38;
-}
-.lo.u path {
-  stroke-dasharray: 33;
-  stroke-dashoffset: 33;
-}
-.lo.v path {
-  stroke-dasharray: 34;
-  stroke-dashoffset: 34;
-}
-.lo.w path {
-  stroke-dasharray: 81;
-  stroke-dashoffset: 81;
-}
-.lo.x path {
-  stroke-dasharray: 34;
-  stroke-dashoffset: 34;
-}
-.lo.y path {
-  stroke-dasharray: 60;
-  stroke-dashoffset: 60;
-}
-.lo.z path {
-  stroke-dasharray: 30;
-  stroke-dashoffset: 30;
-}
+
+/* Animation fix for all letters */
