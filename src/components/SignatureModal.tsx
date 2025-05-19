@@ -167,7 +167,7 @@ const SignatureModal: React.FC = () => {
       
       {/* Mobile download button - always visible on mobile */}
       {isActive && <div className="sm:hidden">
-          <Button onClick={downloadSignature} variant="secondary" className="w-full justify-center ounded-full bg-white/15 dark:bg-slate-900/30 border-white/30 dark:border-slate-600/30">
+          <Button onClick={downloadSignature} variant="secondary" className="w-full justify-center rounded-full bg-white/15 dark:bg-slate-900/30 border-white/30 dark:border-slate-600/30">
             <Download className="h-4 w-4 mr-2" />
             Download Signature
           </Button>
