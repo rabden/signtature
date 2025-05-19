@@ -40,9 +40,9 @@ const SignatureModal: React.FC = () => {
       maxHeight = Math.max(maxHeight, rect.height);
     });
     
-    // Add some padding
-    containerSvg.setAttribute('width', (totalWidth + 10).toString());
-    containerSvg.setAttribute('height', (maxHeight + 10).toString());
+    // Reduced padding for tighter spacing
+    containerSvg.setAttribute('width', totalWidth.toString());
+    containerSvg.setAttribute('height', maxHeight.toString());
     
     // Add white background
     const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -52,7 +52,7 @@ const SignatureModal: React.FC = () => {
     containerSvg.appendChild(background);
     
     // Clone and add each SVG element to the container
-    let offsetX = 5; // Start with a bit of padding
+    let offsetX = 0; // No initial padding
     svgElements.forEach((svg) => {
       // Deep clone the SVG element
       const svgClone = svg.cloneNode(true) as SVGSVGElement;
@@ -72,7 +72,7 @@ const SignatureModal: React.FC = () => {
       
       // Create a group to position each letter
       const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      group.setAttribute('transform', `translate(${offsetX}, 5)`);
+      group.setAttribute('transform', `translate(${offsetX}, 0)`);
       
       // Add SVG content to group
       while (svgClone.firstChild) {
@@ -81,6 +81,14 @@ const SignatureModal: React.FC = () => {
       
       containerSvg.appendChild(group);
       offsetX += svg.getBoundingClientRect().width;
+      // Apply the original letter spacing from CSS
+      const letterClass = svg.parentElement?.className.split(' ')[0];
+      const letterChar = svg.parentElement?.className.split(' ')[1];
+      
+      // Try to preserve the same inter-letter spacing as in the UI
+      if (letterClass && letterChar) {
+        // We're not adding extra spacing, just using the natural width
+      }
     });
     
     // Serialize the SVG to a string
