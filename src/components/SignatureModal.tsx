@@ -15,40 +15,65 @@ const SignatureModal: React.FC = () => {
     handleKeyDown
   } = useSignature();
 
-  // Function to download the signature as an image
+  // Function to download the signature as an SVG
   const downloadSignature = () => {
     if (!signatureRef.current) return;
     
-    // Create a canvas element
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    // Get the SVG content
     const signatureDiv = signatureRef.current;
+    const svgElements = signatureDiv.querySelectorAll('svg');
     
-    // Set canvas dimensions
-    canvas.width = signatureDiv.offsetWidth;
-    canvas.height = signatureDiv.offsetHeight;
+    if (svgElements.length === 0) return;
     
-    // Draw white background
-    if (ctx) {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Create a container SVG to hold all the letter SVGs
+    const containerSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    containerSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    containerSvg.setAttribute('width', signatureDiv.offsetWidth.toString());
+    containerSvg.setAttribute('height', signatureDiv.offsetHeight.toString());
+    
+    // Add white background
+    const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    background.setAttribute('width', '100%');
+    background.setAttribute('height', '100%');
+    background.setAttribute('fill', '#ffffff');
+    containerSvg.appendChild(background);
+    
+    // Clone and add each SVG element to the container
+    let offsetX = 0;
+    svgElements.forEach((svg) => {
+      const svgClone = svg.cloneNode(true) as SVGSVGElement;
+      const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       
-      // Convert the SVG content to an image
-      const svgData = new XMLSerializer().serializeToString(signatureDiv);
-      const img = new Image();
+      // Get the original viewBox
+      const viewBox = svgClone.getAttribute('viewBox')?.split(' ').map(Number) || [0, 0, 0, 0];
       
-      img.onload = () => {
-        ctx.drawImage(img, 0, 0);
-        
-        // Create download link
-        const link = document.createElement('a');
-        link.download = 'signature.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      };
+      // Position the SVG
+      group.setAttribute('transform', `translate(${offsetX}, 0)`);
       
-      img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
-    }
+      // Add all children of the SVG to the group
+      while (svgClone.firstChild) {
+        group.appendChild(svgClone.firstChild);
+      }
+      
+      containerSvg.appendChild(group);
+      offsetX += svgClone.getBoundingClientRect().width;
+    });
+    
+    // Serialize the SVG to a string
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(containerSvg);
+    
+    // Create a Blob and download link
+    const blob = new Blob([svgString], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.download = 'signature.svg';
+    link.href = url;
+    link.click();
+    
+    // Clean up
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -95,7 +120,7 @@ const SignatureModal: React.FC = () => {
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Download signature</p>
+                  <p>Download signature as SVG</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -103,8 +128,10 @@ const SignatureModal: React.FC = () => {
         </div>
       </div>
       
-      {/* Hidden letter bank for SVG templates */}
-      <LetterBank />
+      {/* Hidden letter bank for SVG templates - now invisible */}
+      <div className="hidden invisible">
+        <LetterBank />
+      </div>
     </div>
   );
 };
