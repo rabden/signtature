@@ -1,11 +1,9 @@
-
 import React, { useRef } from 'react';
 import { useSignature } from '@/hooks/useSignature';
 import { Input } from '@/components/ui/input';
 import LetterBank from './LetterBank';
 import { FileText, Download } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
 const SignatureModal: React.FC = () => {
   const {
     signatureText,
@@ -132,7 +130,6 @@ const SignatureModal: React.FC = () => {
     // Clean up
     URL.revokeObjectURL(url);
   };
-
   return <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch gap-6 w-[400px] p-6 rounded-2xl overflow-hidden transition-all duration-400 ease-in-out">
       <div className="field-wrapper relative flex flex-col gap-2">
         <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
@@ -140,7 +137,7 @@ const SignatureModal: React.FC = () => {
           <span>Digital Signature</span>
         </h2>
         
-        <Input autoComplete="off" name="hidden" className="field text-lg h-14 rounded-xl bg-white/30 dark:bg-slate-900/30 border-white/30 dark:border-slate-600/30 px-5 focus:border-white/50 dark:focus:border-slate-500/50 placeholder:text-slate-500/70 dark:placeholder:text-slate-400/50" maxLength={256} placeholder="Type your name" type="text" id="First-name" required value={signatureText} onChange={handleInputChange} onKeyDown={handleKeyDown} />
+        <Input autoComplete="off" name="hidden" maxLength={256} placeholder="Type your name" type="text" id="First-name" required value={signatureText} onChange={handleInputChange} onKeyDown={handleKeyDown} className="field text-lg h-14 rounded-full bg-white/15 dark:bg-slate-900/30 border-white/30 dark:border-slate-600/30 px-5 focus:border-white/50 dark:focus:border-slate-500/50 placeholder:text-slate-500/70 dark:placeholder:text-slate-400/50" />
       </div>
 
       <div className={`signature-container relative bg-transparent rounded-xl p-4 transition-all duration-300 group ${isActive ? 'opacity-100' : 'opacity-50'}`}>
@@ -172,5 +169,4 @@ const SignatureModal: React.FC = () => {
       </div>
     </div>;
 };
-
 export default SignatureModal;
