@@ -48,12 +48,6 @@ const SignatureModal: React.FC = () => {
     containerSvg.setAttribute('width', totalWidth.toString());
     containerSvg.setAttribute('height', maxHeight.toString());
 
-    const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    background.setAttribute('width', '100%');
-    background.setAttribute('height', '100%');
-    background.setAttribute('fill', '#ffffff');
-    containerSvg.appendChild(background);
-
     let offsetX = 0;
 
     svgElements.forEach(svg => {
@@ -131,8 +125,10 @@ const SignatureModal: React.FC = () => {
       const serializer = new XMLSerializer();
       const svgString = serializer.serializeToString(containerSvg);
 
-      const width = parseInt(containerSvg.getAttribute('width') || '0') * 2;
-      const height = parseInt(containerSvg.getAttribute('height') || '0') * 2;
+      // Higher resolution (4x for crisp output)
+      const scale = 4;
+      const width = parseInt(containerSvg.getAttribute('width') || '0') * scale;
+      const height = parseInt(containerSvg.getAttribute('height') || '0') * scale;
 
       const canvas = document.createElement('canvas');
       canvas.width = width;
@@ -140,7 +136,8 @@ const SignatureModal: React.FC = () => {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Fill white background for JPG (no transparency)
+      // Only fill white background for JPG (no transparency support)
+      // PNG and WebP stay transparent
       if (format === 'jpg') {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, width, height);
